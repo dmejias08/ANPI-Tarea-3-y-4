@@ -27,12 +27,14 @@ function [I] = trapecio_compuesto_iterativo(f, a, b, tol, iterMax)
   for k=2:iterMax
     sk_1 = trapecio_compuesto(f, a, b, k);
     error = abs(sk_1 - sk) / abs(sk_1);
+
     if (error < tol)
       break
     endif
+
     sk = sk_1;
   endfor
 
   I = sk_1;
 
-  endfunction
+endfunction

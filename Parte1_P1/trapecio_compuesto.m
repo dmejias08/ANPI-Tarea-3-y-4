@@ -19,7 +19,6 @@
 % - conjunto_soporte: Genera un conjunto de puntos de soporte para la integración compuesta.
 
 function [I] = trapecio_compuesto(f, a, b, N)
-
   x = conjunto_soporte(a,b,N);
   I = 0;
   for j=1:N-1
