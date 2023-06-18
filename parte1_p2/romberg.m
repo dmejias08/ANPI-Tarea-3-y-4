@@ -16,10 +16,11 @@ function R = romberg(f, a, b, n)
 %   - R: Matriz de dos filas, con n columnas.
 %       Aproximación de la integral de f en el intervalo [a, b] es el valor R(2,n).
 
-    syms x;
-    f_sym = f;
+    R = zeros(2, n);
+    f_sym = sym(f);
+    func = matlabFunction(f_sym);
     h = b - a;
-    R(1, 1) = (h / 2) * (subs(f_sym, x, a) + subs(f_sym, x, b));
+    R(1, 1) = (h / 2) * (func(a) + func(b));
 
     for i = 2:n
        % Regla del trapecio
@@ -27,7 +28,7 @@ function R = romberg(f, a, b, n)
         sum_term = 0;
 
         for k = 1:2^(i-2)
-            sum_term = sum_term + subs(f_sym, x, a + (k - 0.5) * h);
+            sum_term = sum_term + func(a + (k - 0.5) * h);
         end
 
         R(2, 1) = 0.5 * R(1, 1) + h * sum_term;
@@ -43,15 +44,4 @@ function R = romberg(f, a, b, n)
         end
     end
 end
-
-
-f = @(x) sin(x);
-a = 0;
-b = pi;
-n = 7;
-
-R = romberg(f, a, b, n);
-approximation = double(R(end));  % Convert symbolic result to numeric
-disp(approximation);
-
 
