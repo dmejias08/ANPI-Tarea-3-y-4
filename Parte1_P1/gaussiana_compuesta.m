@@ -27,7 +27,6 @@ function [I] = gaussiana_compuesta(f,a,b,M,N)
   for i=1:N-1
     I = I + cuadratura_gaussiana(f,x(i),x(i+1),M);
   end
-  disp(I);
 
 end
 
